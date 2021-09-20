@@ -1,7 +1,7 @@
 {
-  "name": "@digitalroute/cz-conventional-changelog-for-jira",
+  "name": "@dionlarson/cz-conventional-changelog-for-shortcut",
   "version": "0.0.0-semantically-released",
-  "description": "Commitizen adapter following the conventional-changelog format and also asking for JIRA issue.",
+  "description": "Commitizen adapter following the conventional-changelog format and also asking for Shortcut story.",
   "main": "index.js",
   "scripts": {
     "commit": "git-cz",
@@ -9,16 +9,16 @@
     "format": "prettier --write *.js",
     "semantic-release": "semantic-release"
   },
-  "homepage": "https://github.com/digitalroute/cz-conventional-changelog-for-jira",
+  "homepage": "https://github.com/dionlarson/cz-conventional-changelog-for-shortcut",
   "repository": {
     "type": "git",
-    "url": "https://github.com/digitalroute/cz-conventional-changelog-for-jira.git"
+    "url": "https://github.com/dionlarson/cz-conventional-changelog-for-shortcut.git"
   },
   "engineStrict": true,
   "engines": {
     "node": ">= 10"
   },
-  "author": "Marcus Johansson <polarn@gmail.com>",
+  "author": "Dion Larson <me@dionlarson.com>",
   "license": "MIT",
   "dependencies": {
     "boxen": "^5.0.0",
@@ -48,7 +48,7 @@
   "config": {
     "commitizen": {
       "path": "./index.js",
-      "jiraMode": false,
+      "shortcutMode": false,
       "skipScope": true
     }
   },

@@ -14,7 +14,7 @@ var defaultOptions = defaults;
 
 var type = 'func';
 var scope = 'everything';
-var jira = 'DAZ-123';
+var shortcut = 'SC-123';
 var subject = 'testing123';
 const shortBody = 'a';
 var longBody =
@@ -51,147 +51,153 @@ describe('commit message', function() {
     expect(
       commitMessage({
         type,
-        jira,
+        shortcut,
         subject
       })
-    ).to.equal(`${type}: ${jira} ${subject}`);
+    ).to.equal(`${type}: ${shortcut} ${subject}`);
   });
   it('only header w/ scope', function() {
     expect(
       commitMessage({
         type,
         scope,
-        jira,
+        shortcut,
         subject
       })
-    ).to.equal(`${type}(${scope}): ${jira} ${subject}`);
+    ).to.equal(`${type}(${scope}): ${shortcut} ${subject}`);
   });
   it('header and body w/ out scope', function() {
     expect(
       commitMessage({
         type,
-        jira,
+        shortcut,
         subject,
         body
       })
-    ).to.equal(`${type}: ${jira} ${subject}\n\n${body}`);
+    ).to.equal(`${type}: ${shortcut} ${subject}\n\n${body}`);
   });
   it('header and body w/ scope', function() {
     expect(
       commitMessage({
         type,
         scope,
-        jira,
+        shortcut,
         subject,
         body
       })
-    ).to.equal(`${type}(${scope}): ${jira} ${subject}\n\n${body}`);
+    ).to.equal(`${type}(${scope}): ${shortcut} ${subject}\n\n${body}`);
   });
   it('header, body and issues w/ out scope', function() {
     expect(
       commitMessage({
         type,
-        jira,
+        shortcut,
         subject,
         body,
         issues
       })
-    ).to.equal(`${type}: ${jira} ${subject}\n\n${body}\n\n${issues}`);
+    ).to.equal(`${type}: ${shortcut} ${subject}\n\n${body}\n\n${issues}`);
   });
   it('header, body and issues w/ scope', function() {
     expect(
       commitMessage({
         type,
         scope,
-        jira,
+        shortcut,
         subject,
         body,
         issues
       })
-    ).to.equal(`${type}(${scope}): ${jira} ${subject}\n\n${body}\n\n${issues}`);
+    ).to.equal(
+      `${type}(${scope}): ${shortcut} ${subject}\n\n${body}\n\n${issues}`
+    );
   });
   it('header, body and long issues w/ out scope', function() {
     expect(
       commitMessage({
         type,
-        jira,
+        shortcut,
         subject,
         body,
         issues: longIssues
       })
-    ).to.equal(`${type}: ${jira} ${subject}\n\n${body}\n\n${longIssuesSplit}`);
+    ).to.equal(
+      `${type}: ${shortcut} ${subject}\n\n${body}\n\n${longIssuesSplit}`
+    );
   });
   it('header, body and long issues w/ scope', function() {
     expect(
       commitMessage({
         type,
         scope,
-        jira,
+        shortcut,
         subject,
         body,
         issues: longIssues
       })
     ).to.equal(
-      `${type}(${scope}): ${jira} ${subject}\n\n${body}\n\n${longIssuesSplit}`
+      `${type}(${scope}): ${shortcut} ${subject}\n\n${body}\n\n${longIssuesSplit}`
     );
   });
   it('header and long body w/ out scope', function() {
     expect(
       commitMessage({
         type,
-        jira,
+        shortcut,
         subject,
         body: longBody
       })
-    ).to.equal(`${type}: ${jira} ${subject}\n\n${longBodySplit}`);
+    ).to.equal(`${type}: ${shortcut} ${subject}\n\n${longBodySplit}`);
   });
   it('header and long body w/ scope', function() {
     expect(
       commitMessage({
         type,
         scope,
-        jira,
+        shortcut,
         subject,
         body: longBody
       })
-    ).to.equal(`${type}(${scope}): ${jira} ${subject}\n\n${longBodySplit}`);
+    ).to.equal(`${type}(${scope}): ${shortcut} ${subject}\n\n${longBodySplit}`);
   });
   it('header, long body and issues w/ out scope', function() {
     expect(
       commitMessage({
         type,
-        jira,
+        shortcut,
         subject,
         body: longBody,
         issues
       })
-    ).to.equal(`${type}: ${jira} ${subject}\n\n${longBodySplit}\n\n${issues}`);
+    ).to.equal(
+      `${type}: ${shortcut} ${subject}\n\n${longBodySplit}\n\n${issues}`
+    );
   });
   it('header, long body and issues w/ scope', function() {
     expect(
       commitMessage({
         type,
         scope,
-        jira,
+        shortcut,
         subject,
         body: longBody,
         issues
       })
     ).to.equal(
-      `${type}(${scope}): ${jira} ${subject}\n\n${longBodySplit}\n\n${issues}`
+      `${type}(${scope}): ${shortcut} ${subject}\n\n${longBodySplit}\n\n${issues}`
     );
   });
   it('header, long body and long issues w/ out scope', function() {
     expect(
       commitMessage({
         type,
-        jira,
+        shortcut,
         subject,
         body: longBody,
         issues: longIssues
       })
     ).to.equal(
-      `${type}: ${jira} ${subject}\n\n${longBodySplit}\n\n${longIssuesSplit}`
+      `${type}: ${shortcut} ${subject}\n\n${longBodySplit}\n\n${longIssuesSplit}`
     );
   });
   it('header, long body and long issues w/ scope', function() {
@@ -199,13 +205,13 @@ describe('commit message', function() {
       commitMessage({
         type,
         scope,
-        jira,
+        shortcut,
         subject,
         body: longBody,
         issues: longIssues
       })
     ).to.equal(
-      `${type}(${scope}): ${jira} ${subject}\n\n${longBodySplit}\n\n${longIssuesSplit}`
+      `${type}(${scope}): ${shortcut} ${subject}\n\n${longBodySplit}\n\n${longIssuesSplit}`
     );
   });
   it('header, long body, breaking change, and long issues w/ scope', function() {
@@ -213,14 +219,14 @@ describe('commit message', function() {
       commitMessage({
         type,
         scope,
-        jira,
+        shortcut,
         subject,
         body: longBody,
         breaking,
         issues: longIssues
       })
     ).to.equal(
-      `${type}(${scope}): ${jira} ${subject}\n\n${longBodySplit}\n\n${breakingChange}${breaking}\n\n${longIssuesSplit}`
+      `${type}(${scope}): ${shortcut} ${subject}\n\n${longBodySplit}\n\n${breakingChange}${breaking}\n\n${longIssuesSplit}`
     );
   });
   it('header, long body, breaking change (with prefix entered), and long issues w/ scope', function() {
@@ -228,147 +234,147 @@ describe('commit message', function() {
       commitMessage({
         type,
         scope,
-        jira,
+        shortcut,
         subject,
         body: longBody,
         breaking: `${breakingChange}${breaking}`,
         issues: longIssues
       })
     ).to.equal(
-      `${type}(${scope}): ${jira} ${subject}\n\n${longBodySplit}\n\n${breakingChange}${breaking}\n\n${longIssuesSplit}`
+      `${type}(${scope}): ${shortcut} ${subject}\n\n${longBodySplit}\n\n${breakingChange}${breaking}\n\n${longIssuesSplit}`
     );
   });
-  it('skip jira task when optional', function() {
+  it('skip shortcut task when optional', function() {
     expect(
       commitMessage(
         {
           type,
           scope,
-          jira: '',
+          shortcut: '',
           subject
         },
-        { jiraOptional: true }
+        { shortcutOptional: true }
       )
     ).to.equal(`${type}(${scope}): ${subject}`);
   });
-  it('default jiraLocation when unknown', function() {
+  it('default shortcutLocation when unknown', function() {
     expect(
       commitMessage(
         {
           type,
           scope,
-          jira,
+          shortcut,
           subject,
           body
         },
-        { jiraLocation: 'unknown-location' }
+        { shortcutLocation: 'unknown-location' }
       )
-    ).to.equal(`${type}(${scope}): ${jira} ${subject}\n\n${body}`);
+    ).to.equal(`${type}(${scope}): ${shortcut} ${subject}\n\n${body}`);
   });
-  it('pre-type jiraLocation', function() {
+  it('pre-type shortcutLocation', function() {
     expect(
       commitMessage(
         {
           type,
           scope,
-          jira,
+          shortcut,
           subject,
           body
         },
-        { jiraLocation: 'pre-type' }
+        { shortcutLocation: 'pre-type' }
       )
-    ).to.equal(`${jira} ${type}(${scope}): ${subject}\n\n${body}`);
+    ).to.equal(`${shortcut} ${type}(${scope}): ${subject}\n\n${body}`);
   });
-  it('pre-description jiraLocation', function() {
+  it('pre-description shortcutLocation', function() {
     expect(
       commitMessage(
         {
           type,
           scope,
-          jira,
+          shortcut,
           subject,
           body
         },
-        { jiraLocation: 'pre-description' }
+        { shortcutLocation: 'pre-description' }
       )
-    ).to.equal(`${type}(${scope}): ${jira} ${subject}\n\n${body}`);
+    ).to.equal(`${type}(${scope}): ${shortcut} ${subject}\n\n${body}`);
   });
-  it('post-description jiraLocation', function() {
+  it('post-description shortcutLocation', function() {
     expect(
       commitMessage(
         {
           type,
           scope,
-          jira,
+          shortcut,
           subject,
           body
         },
-        { jiraLocation: 'post-description' }
+        { shortcutLocation: 'post-description' }
       )
-    ).to.equal(`${type}(${scope}): ${subject} ${jira} \n\n${body}`);
+    ).to.equal(`${type}(${scope}): ${subject} ${shortcut} \n\n${body}`);
   });
-  it('jiraPrepend decorator', function() {
+  it('shortcutPrepend decorator', function() {
     expect(
       commitMessage(
         {
           type,
           scope,
-          jira,
+          shortcut,
           subject,
           body
         },
-        { jiraPrepend: '-' }
+        { shortcutPrepend: '-' }
       )
-    ).to.equal(`${type}(${scope}): -${jira} ${subject}\n\n${body}`);
+    ).to.equal(`${type}(${scope}): -${shortcut} ${subject}\n\n${body}`);
   });
-  it('jiraAppend decorator', function() {
+  it('shortcutAppend decorator', function() {
     expect(
       commitMessage(
         {
           type,
           scope,
-          jira,
+          shortcut,
           subject,
           body
         },
-        { jiraAppend: '+' }
+        { shortcutAppend: '+' }
       )
-    ).to.equal(`${type}(${scope}): ${jira}+ ${subject}\n\n${body}`);
+    ).to.equal(`${type}(${scope}): ${shortcut}+ ${subject}\n\n${body}`);
   });
-  it('jiraPrepend and jiraAppend decorators', function() {
+  it('shortcutPrepend and shortcutAppend decorators', function() {
     expect(
       commitMessage(
         {
           type,
           scope,
-          jira,
+          shortcut,
           subject,
           body
         },
         {
-          jiraAppend: ']',
-          jiraPrepend: '['
+          shortcutAppend: ']',
+          shortcutPrepend: '['
         }
       )
-    ).to.equal(`${type}(${scope}): [${jira}] ${subject}\n\n${body}`);
+    ).to.equal(`${type}(${scope}): [${shortcut}] ${subject}\n\n${body}`);
   });
-  it('jiraLocation, jiraPrepend, jiraAppend decorators', function() {
+  it('shortcutLocation, shortcutPrepend, shortcutAppend decorators', function() {
     expect(
       commitMessage(
         {
           type,
           scope,
-          jira,
+          shortcut,
           subject,
           body
         },
         {
-          jiraAppend: ']',
-          jiraPrepend: '[',
-          jiraLocation: 'pre-type'
+          shortcutAppend: ']',
+          shortcutPrepend: '[',
+          shortcutLocation: 'pre-type'
         }
       )
-    ).to.equal(`[${jira}] ${type}(${scope}): ${subject}\n\n${body}`);
+    ).to.equal(`[${shortcut}] ${type}(${scope}): ${subject}\n\n${body}`);
   });
 });
 
@@ -378,7 +384,7 @@ describe('validation', function() {
       commitMessage({
         type,
         scope,
-        jira,
+        shortcut,
         subject: shortBody
       })
     ).to.throw(`The subject must have at least 2 characters`);
@@ -392,18 +398,18 @@ describe('validation', function() {
       })
     ).to.throw(`The subject must have at least 2 characters`);
   });
-  it('empty jira if not optional', function() {
+  it('empty shortcut if not optional', function() {
     expect(() =>
       commitMessage(
         {
           type,
           scope,
-          jira: '',
+          shortcut: '',
           subject
         },
-        { jiraOptional: false }
+        { shortcutOptional: false }
       )
-    ).to.throw(`Answer '' to question 'jira' was invalid`);
+    ).to.throw(`Answer '' to question 'shortcut' was invalid`);
   });
 });
 
@@ -565,12 +571,14 @@ describe('commitlint config header-max-length', function() {
 });
 
 describe('questions', function() {
-  it('default jira question', function() {
-    expect(questionPrompt('jira')).to.be.eq('Enter JIRA issue (DAZ-12345):');
+  it('default shortcut question', function() {
+    expect(questionPrompt('shortcut')).to.be.eq(
+      'Enter Shortcut issue (SC-12345):'
+    );
   });
-  it('optional jira question', function() {
-    expect(questionPrompt('jira', [], { jiraOptional: true })).to.be.eq(
-      'Enter JIRA issue (DAZ-12345) (optional):'
+  it('optional shortcut question', function() {
+    expect(questionPrompt('shortcut', [], { shortcutOptional: true })).to.be.eq(
+      'Enter Shortcut issue (SC-12345) (optional):'
     );
   });
   it('scope with list', function() {

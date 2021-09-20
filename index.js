@@ -19,10 +19,10 @@ function getEnvOrConfig(env, configVar, defaultValue) {
 const options = {
   types: conventionalCommitTypes,
   scopes: config.scopes,
-  jiraMode: getEnvOrConfig(
-    process.env.CZ_JIRA_MODE,
-    config.jiraMode,
-    defaults.jiraMode
+  shortcutMode: getEnvOrConfig(
+    process.env.CZ_SHORTCUT_MODE,
+    config.shortcutMode,
+    defaults.shortcutMode
   ),
   skipScope: getEnvOrConfig(
     process.env.CZ_SKIP_SCOPE,
@@ -49,27 +49,27 @@ const options = {
       parseInt(process.env.CZ_MAX_LINE_WIDTH)) ||
     config.maxLineWidth ||
     defaults.maxLineWidth,
-  jiraOptional: getEnvOrConfig(
-    process.env.CZ_JIRA_OPTIONAL,
-    config.jiraOptional,
-    defaults.jiraOptional
+  shortcutOptional: getEnvOrConfig(
+    process.env.CZ_SHORTCUT_OPTIONAL,
+    config.shortcutOptional,
+    defaults.shortcutOptional
   ),
-  jiraPrefix:
-    process.env.CZ_JIRA_PREFIX ||
-    config.jiraPrefix ||
-    defaults.jiraPrefix,
-  jiraLocation:
-    process.env.CZ_JIRA_LOCATION ||
-    config.jiraLocation ||
-    defaults.jiraLocation,
-  jiraPrepend:
-    process.env.CZ_JIRA_PREPEND ||
-    config.jiraPrepend ||
-    defaults.jiraPrepend,
-  jiraAppend:
-    process.env.CZ_JIRA_APPEND ||
-    config.jiraAppend ||
-    defaults.jiraAppend
+  shortcutPrefix:
+    process.env.CZ_SHORTCUT_PREFIX ||
+    config.shortcutPrefix ||
+    defaults.shortcutPrefix,
+  shortcutLocation:
+    process.env.CZ_SHORTCUT_LOCATION ||
+    config.shortcutLocation ||
+    defaults.shortcutLocation,
+  shortcutPrepend:
+    process.env.CZ_SHORTCUT_PREPEND ||
+    config.shortcutPrepend ||
+    defaults.shortcutPrepend,
+  shortcutAppend:
+    process.env.CZ_SHORTCUT_APPEND ||
+    config.shortcutAppend ||
+    defaults.shortcutAppend
 };
 
 (function(options) {

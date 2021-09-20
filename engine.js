@@ -31,19 +31,25 @@ module.exports = function(options) {
   var getFromOptionsOrDefaults = function(key) {
     return options[key] || defaults[key];
   };
-  var getJiraIssueLocation = function(location, type, scope, jiraWithDecorators, subject) {
-    switch(location) {
+  var getShortcutIssueLocation = function(
+    location,
+    type,
+    scope,
+    shortcutWithDecorators,
+    subject
+  ) {
+    switch (location) {
       case 'pre-type':
-        return jiraWithDecorators + type + scope + ': ' + subject;
+        return shortcutWithDecorators + type + scope + ': ' + subject;
         break;
       case 'pre-description':
-        return type + scope + ': ' + jiraWithDecorators + subject;
+        return type + scope + ': ' + shortcutWithDecorators + subject;
         break;
       case 'post-description':
-        return type + scope + ': ' + subject + ' ' + jiraWithDecorators;
+        return type + scope + ': ' + subject + ' ' + shortcutWithDecorators;
         break;
       default:
-        return type + scope + ': ' + jiraWithDecorators + subject;
+        return type + scope + ': ' + shortcutWithDecorators + subject;
     }
   };
   var types = getFromOptionsOrDefaults('types');
@@ -60,10 +66,10 @@ module.exports = function(options) {
   const maxHeaderWidth = getFromOptionsOrDefaults('maxHeaderWidth');
 
   const branchName = branch.sync() || '';
-  const jiraIssueRegex = /(?<jiraIssue>(?<!([A-Z0-9]{1,10})-?)[A-Z0-9]+-\d+)/;
-  const matchResult = branchName.match(jiraIssueRegex);
-  const jiraIssue =
-    matchResult && matchResult.groups && matchResult.groups.jiraIssue;
+  const shortcutIssueRegex = /(?<shortcutIssue>(?<!([A-Z0-9]{1,10})-?)[A-Z0-9]+-\d+)/;
+  const matchResult = branchName.match(shortcutIssueRegex);
+  const shortcutIssue =
+    matchResult && matchResult.groups && matchResult.groups.shortcutIssue;
   const hasScopes =
     options.scopes &&
     Array.isArray(options.scopes) &&
@@ -101,23 +107,23 @@ module.exports = function(options) {
         },
         {
           type: 'input',
-          name: 'jira',
+          name: 'shortcut',
           message:
-            'Enter JIRA issue (' +
-            getFromOptionsOrDefaults('jiraPrefix') +
+            'Enter Shortcut issue (' +
+            getFromOptionsOrDefaults('shortcutPrefix') +
             '-12345)' +
-            (options.jiraOptional ? ' (optional)' : '') +
+            (options.shortcutOptional ? ' (optional)' : '') +
             ':',
-          when: options.jiraMode,
-          default: jiraIssue || '',
-          validate: function(jira) {
+          when: options.shortcutMode,
+          default: shortcutIssue || '',
+          validate: function(shortcut) {
             return (
-              (options.jiraOptional && !jira) ||
-              /^(?<!([A-Z0-9]{1,10})-?)[A-Z0-9]+-\d+$/.test(jira)
+              (options.shortcutOptional && !shortcut) ||
+              /^(?<!([A-Z0-9]{1,10})-?)[A-Z0-9]+-\d+$/.test(shortcut)
             );
           },
-          filter: function(jira) {
-            return jira.toUpperCase();
+          filter: function(shortcut) {
+            return shortcut.toUpperCase();
           }
         },
         {
@@ -140,14 +146,14 @@ module.exports = function(options) {
           default: options.defaultSubject,
           maxLength: maxHeaderWidth,
           leadingLabel: answers => {
-            const jira = answers.jira ? ` ${answers.jira}` : '';
+            const shortcut = answers.shortcut ? ` ${answers.shortcut}` : '';
             let scope = '';
 
             if (answers.scope && answers.scope !== 'none') {
               scope = `(${answers.scope})`;
             }
 
-            return `${answers.type}${scope}:${jira}`;
+            return `${answers.type}${scope}:${shortcut}`;
           },
           validate: input =>
             input.length >= minHeaderWidth ||
@@ -172,7 +178,8 @@ module.exports = function(options) {
         {
           type: 'confirm',
           name: 'isBreaking',
-          message: 'You do know that this will bump the major version, are you sure?',
+          message:
+            'You do know that this will bump the major version, are you sure?',
           default: false,
           when: function(answers) {
             return answers.isBreaking;
@@ -192,7 +199,7 @@ module.exports = function(options) {
           name: 'isIssueAffected',
           message: 'Does this change affect any open issues?',
           default: options.defaultIssues ? true : false,
-          when: !options.jiraMode
+          when: !options.shortcutMode
         },
         {
           type: 'input',
@@ -227,13 +234,21 @@ module.exports = function(options) {
         // parentheses are only needed when a scope is present
         var scope = answers.scope ? '(' + answers.scope + ')' : '';
 
-        // Get Jira issue prepend and append decorators
-        var prepend = options.jiraPrepend || ''
-        var append = options.jiraAppend || ''
-        var jiraWithDecorators = answers.jira ? prepend + answers.jira + append + ' ': '';
+        // Get Shortcut issue prepend and append decorators
+        var prepend = options.shortcutPrepend || '';
+        var append = options.shortcutAppend || '';
+        var shortcutWithDecorators = answers.shortcut
+          ? prepend + answers.shortcut + append + ' '
+          : '';
 
         // Hard limit this line in the validate
-        const head = getJiraIssueLocation(options.jiraLocation, answers.type, scope, jiraWithDecorators, answers.subject);
+        const head = getShortcutIssueLocation(
+          options.shortcutLocation,
+          answers.type,
+          scope,
+          shortcutWithDecorators,
+          answers.subject
+        );
 
         // Wrap these lines at options.maxLineWidth characters
         var body = answers.body ? wrap(answers.body, wrapOptions) : false;
