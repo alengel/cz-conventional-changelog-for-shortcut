@@ -11,5 +11,6 @@ module.exports = {
   shortcutOptional: false,
   shortcutLocation: 'pre-description',
   shortcutPrepend: '',
-  shortcutAppend: ''
+  shortcutAppend: '',
+  shortcutOrganization: ''
 };

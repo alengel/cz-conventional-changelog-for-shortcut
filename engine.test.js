@@ -573,12 +573,12 @@ describe('commitlint config header-max-length', function() {
 describe('questions', function() {
   it('default shortcut question', function() {
     expect(questionPrompt('shortcut')).to.be.eq(
-      'Enter Shortcut issue (SC-12345):'
+      'Enter Shortcut story (SC-1234):'
     );
   });
   it('optional shortcut question', function() {
     expect(questionPrompt('shortcut', [], { shortcutOptional: true })).to.be.eq(
-      'Enter Shortcut issue (SC-12345) (optional):'
+      'Enter Shortcut story (SC-1234) (optional):'
     );
   });
   it('scope with list', function() {

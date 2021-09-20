@@ -1,5 +1,5 @@
 {
-  "name": "@dionlarson/cz-conventional-changelog-for-shortcut",
+  "name": "cz-conventional-changelog-for-shortcut",
   "version": "0.0.0-semantically-released",
   "description": "Commitizen adapter following the conventional-changelog format and also asking for Shortcut story.",
   "main": "index.js",

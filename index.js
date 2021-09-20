@@ -69,7 +69,11 @@ const options = {
   shortcutAppend:
     process.env.CZ_SHORTCUT_APPEND ||
     config.shortcutAppend ||
-    defaults.shortcutAppend
+    defaults.shortcutAppend,
+  shortcutOrganization:
+    process.env.CZ_SHORTCUT_ORGANIZATION ||
+    config.shortcutOrganization ||
+    defaults.shortcutOrganization
 };
 
 (function(options) {

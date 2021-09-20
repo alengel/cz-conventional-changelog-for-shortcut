@@ -1,23 +1,22 @@
 # cz-conventional-changelog-for-shortcut
 
-Part of the [commitizen](https://github.com/commitizen/cz-cli) family. Prompts for [conventional changelog](https://github.com/conventional-changelog/conventional-changelog) standard and also prompts for a mandatory Shortcut issue.
+Part of the [commitizen](https://github.com/commitizen/cz-cli) family. Prompts for [conventional changelog](https://github.com/conventional-changelog/conventional-changelog) standard and also prompts for a mandatory Shortcut story.
 
-[![npm version](https://img.shields.io/npm/v/@dionlarson/cz-conventional-changelog-for-shortcut.svg?style=flat-square)](https://www.npmjs.org/package/@dionlarson/cz-conventional-changelog-for-shortcut)
-[![npm downloads](https://img.shields.io/npm/dm/@dionlarson/cz-conventional-changelog-for-shortcut.svg?style=flat-square)](http://npm-stat.com/charts.html?package=@dionlarson/cz-conventional-changelog-for-shortcut&from=2015-08-01)
-[![Build Status](https://img.shields.io/travis/dionlarson/cz-conventional-changelog-for-shortcut.svg?style=flat-square)](https://travis-ci.org/dionlarson/cz-conventional-changelog-for-shortcut)
+[![npm version](https://img.shields.io/npm/v/cz-conventional-changelog-for-shortcut.svg?style=flat-square)](https://www.npmjs.org/package/cz-conventional-changelog-for-shortcut)
+[![npm downloads](https://img.shields.io/npm/dm/cz-conventional-changelog-for-shortcut.svg?style=flat-square)](http://npm-stat.com/charts.html?package=cz-conventional-changelog-for-shortcut&from=2015-08-01)
 
 ## Features
 
 - Works seamlessly with semantic-release 🚀
 - Works seamlessly with Shortcut smart commits
-- Automatically detects the Shortcut issue from the branch name
+- Automatically detects the Shortcut story from the branch name
 
 ## Quickstart
 
 ### Installation
 
 ```bash
-npm install commitizen @dionlarson/cz-conventional-changelog-for-shortcut
+npm install commitizen cz-conventional-changelog-for-shortcut
 ```
 
 and then add the following to package.json:
@@ -29,7 +28,7 @@ and then add the following to package.json:
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/@dionlarson/cz-conventional-changelog-for-shortcut"
+      "path": "./node_modules/cz-conventional-changelog-for-shortcut"
     }
   }
 }
@@ -45,7 +44,7 @@ Like commitizen, you can specify the configuration of cz-conventional-changelog-
 
 | Environment variable | package.json   | Default           | Description                                                                                                                                                           |
 | -------------------- | -------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CZ_SHORTCUT_MODE         | shortcutMode       | true              | If this is set to true, CZ will ask for a Shortcut issue and put it in the commit head. If set to false CZ will ask for the issue in the end, and can be used for GitHub. |
+| CZ_SHORTCUT_MODE         | shortcutMode       | true              | If this is set to true, CZ will ask for a Shortcut story and put it in the commit head. If set to false CZ will ask for the issue in the end, and can be used for GitHub. |
 | CZ_MAX_HEADER_WIDTH  | maxHeaderWidth | 72                | This limits how long a commit message head can be.                                                                                                                    |
 | CZ_MIN_HEADER_WIDTH  | minHeaderWidth | 2                 | This limits how short a commit message can be.                                                                                                                        |
 | CZ_MAX_LINE_WIDTH    | maxLineWidth   | 100               | Commit message bodies are automatically wrapped. This decides how long the lines will be.                                                                             |
@@ -61,6 +60,7 @@ Like commitizen, you can specify the configuration of cz-conventional-changelog-
 | CZ_SHORTCUT_LOCATION     | shortcutLocation   | "pre-description" | Changes position of Shortcut ID. Options: `pre-type`, `pre-description`, `post-description`                                                                               |
 | CZ_SHORTCUT_PREPEND      | shortcutPrepend    | ""                | Prepends Shortcut ID with an optional decorator. e.g.: `[SC-1234`                                                                                                        |
 | CZ_SHORTCUT_APPEND       | shortcutAppend     | ""                | Appends Shortcut ID with an optional decorator. e.g.: `SC-1234]`                                                                                                         |
+| CZ_SHORTCUT_ORGANIZATION | shortcutOrganization  | ""                | If this is set, adds links to the referenced Shortcut story in the body of commit                                                                                                         |
 
 ## Dynamic Configuration
 
@@ -68,9 +68,9 @@ Alternatively, if you want to create your own profile, you can use the _configur
 Here is an example:
 **./index.js**
 ```javascript
-const custom = require('@dionlarson/cz-conventional-changelog-for-shortcut/configurable');
+const custom = require('cz-conventional-changelog-for-shortcut/configurable');
 // You can do this optionally if you want to extend the commit types
-const defaultTypes = require('@dionlarson/cz-conventional-changelog-for-shortcut/types');
+const defaultTypes = require('cz-conventional-changelog-for-shortcut/types');
 
 module.exports = custom({
   types: {
@@ -103,7 +103,7 @@ This example would:
 List of all supported configurable options when using the _configurable_ approach:
 | Key            | Default                  | Description                                                                                                                                                           |
 | -------------- | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| shortcutMode       | true                     | If this is set to true, CZ will ask for a Shortcut issue and put it in the commit head. If set to false CZ will ask for the issue in the end, and can be used for GitHub. |
+| shortcutMode       | true                     | If this is set to true, CZ will ask for a Shortcut story and put it in the commit head. If set to false CZ will ask for the issue in the end, and can be used for GitHub. |
 | maxHeaderWidth | 72                       | This limits how long a commit message head can be.                                                                                                                    |
 | minHeaderWidth | 2                        | This limits how short a commit message can be.                                                                                                                        |
 | maxLineWidth   | 100                      | Commit message bodies are automatically wrapped. This decides how long the lines will be.                                                                             |
@@ -120,6 +120,7 @@ List of all supported configurable options when using the _configurable_ approac
 | shortcutLocation   | "pre-description"        | Changes position of Shortcut ID. Options: `pre-type`, `pre-description`, `post-description`                                                                               |
 | shortcutPrepend    | ""                       | Prepends Shortcut ID with an optional decorator. e.g.: `[SC-1234`                                                                                                        |
 | shortcutAppend     | ""                       | Appends Shortcut ID with an optional decorator. e.g.: `SC-1234]`                                                                                                         |
+
 ### Commitlint
 
 If using the [commitlint](https://github.com/conventional-changelog/commitlint) js library, the "maxHeaderWidth" configuration property will default to the configuration of the "header-max-length" rule instead of the hard coded value of 72. This can be ovewritten by setting the 'maxHeaderWidth' configuration in package.json or the CZ_MAX_HEADER_WIDTH environment variable.
