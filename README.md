@@ -2,9 +2,9 @@
 
 Part of the [commitizen](https://github.com/commitizen/cz-cli) family. Prompts for [conventional changelog](https://github.com/conventional-changelog/conventional-changelog) standard and also prompts for a mandatory Shortcut issue.
 
-[![npm version](https://img.shields.io/npm/v/@digitalroute/cz-conventional-changelog-for-shortcut.svg?style=flat-square)](https://www.npmjs.org/package/@digitalroute/cz-conventional-changelog-for-shortcut)
-[![npm downloads](https://img.shields.io/npm/dm/@digitalroute/cz-conventional-changelog-for-shortcut.svg?style=flat-square)](http://npm-stat.com/charts.html?package=@digitalroute/cz-conventional-changelog-for-shortcut&from=2015-08-01)
-[![Build Status](https://img.shields.io/travis/digitalroute/cz-conventional-changelog-for-shortcut.svg?style=flat-square)](https://travis-ci.org/digitalroute/cz-conventional-changelog-for-shortcut)
+[![npm version](https://img.shields.io/npm/v/@dionlarson/cz-conventional-changelog-for-shortcut.svg?style=flat-square)](https://www.npmjs.org/package/@dionlarson/cz-conventional-changelog-for-shortcut)
+[![npm downloads](https://img.shields.io/npm/dm/@dionlarson/cz-conventional-changelog-for-shortcut.svg?style=flat-square)](http://npm-stat.com/charts.html?package=@dionlarson/cz-conventional-changelog-for-shortcut&from=2015-08-01)
+[![Build Status](https://img.shields.io/travis/dionlarson/cz-conventional-changelog-for-shortcut.svg?style=flat-square)](https://travis-ci.org/dionlarson/cz-conventional-changelog-for-shortcut)
 
 ## Features
 
@@ -17,7 +17,7 @@ Part of the [commitizen](https://github.com/commitizen/cz-cli) family. Prompts f
 ### Installation
 
 ```bash
-npm install commitizen @digitalroute/cz-conventional-changelog-for-shortcut
+npm install commitizen @dionlarson/cz-conventional-changelog-for-shortcut
 ```
 
 and then add the following to package.json:
@@ -29,7 +29,7 @@ and then add the following to package.json:
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/@digitalroute/cz-conventional-changelog-for-shortcut"
+      "path": "./node_modules/@dionlarson/cz-conventional-changelog-for-shortcut"
     }
   }
 }
@@ -37,7 +37,7 @@ and then add the following to package.json:
 
 ### Usage
 
-![Gif of terminal when using cz-conventional-changelog-for-shortcut](https://raw.githubusercontent.com/digitalroute/cz-conventional-changelog-for-shortcut/master/images/demo.gif)
+![Gif of terminal when using cz-conventional-changelog-for-shortcut](https://raw.githubusercontent.com/dionlarson/cz-conventional-changelog-for-shortcut/master/images/demo.gif)
 
 ## Configuration
 
@@ -68,9 +68,9 @@ Alternatively, if you want to create your own profile, you can use the _configur
 Here is an example:
 **./index.js**
 ```javascript
-const custom = require('@digitalroute/cz-conventional-changelog-for-shortcut/configurable');
+const custom = require('@dionlarson/cz-conventional-changelog-for-shortcut/configurable');
 // You can do this optionally if you want to extend the commit types
-const defaultTypes = require('@digitalroute/cz-conventional-changelog-for-shortcut/types');
+const defaultTypes = require('@dionlarson/cz-conventional-changelog-for-shortcut/types');
 
 module.exports = custom({
   types: {
