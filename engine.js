@@ -66,10 +66,10 @@ module.exports = function(options) {
   const maxHeaderWidth = getFromOptionsOrDefaults('maxHeaderWidth');
 
   const branchName = branch.sync() || '';
-  const shortcutIssueRegex = /(?<shortcutIssue>(?<!([A-Z0-9]{1,10})-?)[A-Z0-9]+-\d+)/;
-  const matchResult = branchName.match(shortcutIssueRegex);
-  const shortcutIssue =
-    matchResult && matchResult.groups && matchResult.groups.shortcutIssue;
+  const shortcutStoryRegex = /(?<shortcutStory>(?<!([a-z0-9]{1,10})-?)[a-z0-9]+-\d+)/;
+  const matchResult = branchName.match(shortcutStoryRegex);
+  const shortcutStory =
+    matchResult && matchResult.groups && matchResult.groups.shortcutStory;
   const hasScopes =
     options.scopes &&
     Array.isArray(options.scopes) &&
@@ -115,15 +115,15 @@ module.exports = function(options) {
             (options.shortcutOptional ? ' (optional)' : '') +
             ':',
           when: options.shortcutMode,
-          default: shortcutIssue || '',
+          default: shortcutStory || `${getFromOptionsOrDefaults('shortcutPrefix')}-`,
           validate: function(shortcut) {
             return (
               (options.shortcutOptional && !shortcut) ||
-              /^(?<!([A-Z0-9]{1,10})-?)[A-Z0-9]+-\d+$/.test(shortcut)
+              /^(?<!([a-z0-9]{1,10})-?)[a-z0-9]+-\d+$/.test(shortcut)
             );
           },
           filter: function(shortcut) {
-            return shortcut.toUpperCase();
+            return shortcut.toLowerCase();
           }
         },
         {
@@ -267,7 +267,7 @@ module.exports = function(options) {
         const shortcutUrl =
           answers.shortcut && options.shortcutOrganization
             ? `https://app.shortcut.com/${options.shortcutOrganization}/story/${
-                answers.shortcut
+                answers.shortcut.match(/-(\d+)$/)[1]
               }`
             : false;
 

@@ -56,10 +56,10 @@ Like commitizen, you can specify the configuration of cz-conventional-changelog-
 | CZ_BODY              | defaultBody    | undefined         | A default body.                                                                                                                                                       |
 | CZ_ISSUES            | defaultIssues  | undefined         | A default issue.                                                                                                                                                      |
 | CZ_SHORTCUT_OPTIONAL     | shortcutOptional   | false             | If this is set to true, you can leave the Shortcut field blank.                                                                                                           |
-| CZ_SHORTCUT_PREFIX       | shortcutPrefix     | "SC"             | If this is set it will be will be displayed as the default Shortcut ticket prefix                                                                                         |
+| CZ_SHORTCUT_PREFIX       | shortcutPrefix     | "sc"             | If this is set it will be will be displayed as the default Shortcut ticket prefix                                                                                         |
 | CZ_SHORTCUT_LOCATION     | shortcutLocation   | "pre-description" | Changes position of Shortcut ID. Options: `pre-type`, `pre-description`, `post-description`                                                                               |
-| CZ_SHORTCUT_PREPEND      | shortcutPrepend    | ""                | Prepends Shortcut ID with an optional decorator. e.g.: `[SC-1234`                                                                                                        |
-| CZ_SHORTCUT_APPEND       | shortcutAppend     | ""                | Appends Shortcut ID with an optional decorator. e.g.: `SC-1234]`                                                                                                         |
+| CZ_SHORTCUT_PREPEND      | shortcutPrepend    | ""                | Prepends Shortcut ID with an optional decorator. e.g.: `[sc-1234`                                                                                                        |
+| CZ_SHORTCUT_APPEND       | shortcutAppend     | ""                | Appends Shortcut ID with an optional decorator. e.g.: `sc-1234]`                                                                                                         |
 | CZ_SHORTCUT_ORGANIZATION | shortcutOrganization  | ""                | If this is set, adds links to the referenced Shortcut story in the body of commit                                                                                                         |
 
 ## Dynamic Configuration
@@ -113,13 +113,13 @@ List of all supported configurable options when using the _configurable_ approac
 | defaultSubject | undefined                | A default subject.                                                                                                                                                    |
 | defaultBody    | undefined                | A default body.                                                                                                                                                       |
 | defaultIssues  | undefined                | A default issue.                                                                                                                                                      |
-| shortcutPrefix     | 'SC'                    | The default Shortcut ticket prefix that will be displayed.                                                                                                                |
+| shortcutPrefix     | 'sc'                    | The default Shortcut ticket prefix that will be displayed.                                                                                                                |
 | types          | ./types.js               | A list (JS Object) of supported commit types.                                                                                                                         |
 | scopes         | undefined                | A list (JS Array) of scopes that will be available for selection. Note that adding this will change the scope field from Inquirer 'input' to 'list'.                  |
 | shortcutOptional   | false                    | If this is set to true, you can leave the Shortcut field blank.                                                                                                           |
 | shortcutLocation   | "pre-description"        | Changes position of Shortcut ID. Options: `pre-type`, `pre-description`, `post-description`                                                                               |
-| shortcutPrepend    | ""                       | Prepends Shortcut ID with an optional decorator. e.g.: `[SC-1234`                                                                                                        |
-| shortcutAppend     | ""                       | Appends Shortcut ID with an optional decorator. e.g.: `SC-1234]`                                                                                                         |
+| shortcutPrepend    | ""                       | Prepends Shortcut ID with an optional decorator. e.g.: `[sc-1234`                                                                                                        |
+| shortcutAppend     | ""                       | Appends Shortcut ID with an optional decorator. e.g.: `sc-1234]`                                                                                                         |
 
 ### Commitlint
 

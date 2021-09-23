@@ -14,7 +14,7 @@ var defaultOptions = defaults;
 
 var type = 'func';
 var scope = 'everything';
-var shortcut = 'SC-123';
+var shortcut = 'sc-123';
 var subject = 'testing123';
 const shortBody = 'a';
 var longBody =
@@ -573,12 +573,12 @@ describe('commitlint config header-max-length', function() {
 describe('questions', function() {
   it('default shortcut question', function() {
     expect(questionPrompt('shortcut')).to.be.eq(
-      'Enter Shortcut story (SC-1234):'
+      'Enter Shortcut story (sc-1234):'
     );
   });
   it('optional shortcut question', function() {
     expect(questionPrompt('shortcut', [], { shortcutOptional: true })).to.be.eq(
-      'Enter Shortcut story (SC-1234) (optional):'
+      'Enter Shortcut story (sc-1234) (optional):'
     );
   });
   it('scope with list', function() {
