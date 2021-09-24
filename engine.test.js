@@ -311,7 +311,7 @@ describe('commit message', function() {
         },
         { shortcutLocation: 'post-description' }
       )
-    ).to.equal(`${type}(${scope}): ${subject} ${shortcut} \n\n${body}`);
+    ).to.equal(`${type}(${scope}): ${subject} ${shortcut}\n\n${body}`);
   });
   it('shortcutPrepend decorator', function() {
     expect(

@@ -22,7 +22,7 @@ class LimitedInputPrompt extends InputPrompt {
       this.leadingLabel = '';
     }
 
-    this.leadingLength = stringWidth(this.leadingLabel);
+    this.leadingLength = stringWidth(this.leadingLabel) + 1;
   }
 
   remainingChar() {

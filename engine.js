@@ -41,7 +41,7 @@ function getShortcutWithDecorators(shortcut, prefix, options) {
   const append = options.shortcutAppend || '';
   return shortcutIsEmpty(shortcut, prefix)
     ? ''
-    : prepend + shortcut + append + ' ';
+    : ' ' + prepend + shortcut + append + ' ';
 }
 
 // This can be any kind of SystemJS compatible module.
@@ -60,13 +60,13 @@ module.exports = function(options) {
   ) {
     switch (location) {
       case 'pre-type':
-        return shortcutWithDecorators + type + scope + ': ' + subject;
+        return shortcutWithDecorators.trimLeft() + type + scope + ': ' + subject;
       case 'pre-description':
-        return type + scope + ': ' + shortcutWithDecorators + subject;
+        return type + scope + ': ' + shortcutWithDecorators.trimLeft() + subject;
       case 'post-description':
-        return type + scope + ': ' + subject + ' ' + shortcutWithDecorators;
+        return type + scope + ': ' + subject + shortcutWithDecorators.trimRight();
       default:
-        return type + scope + ': ' + shortcutWithDecorators + subject;
+        return type + scope + ': ' + shortcutWithDecorators.trimLeft() + subject;
     }
   };
   const types = getFromOptionsOrDefaults('types');
