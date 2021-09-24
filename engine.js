@@ -3,7 +3,6 @@
 const wrap = require('word-wrap');
 const map = require('lodash.map');
 const emojiRegex = require('emoji-regex');
-const rightPad = require('right-pad');
 const chalk = require('chalk');
 const branch = require('git-branch');
 const boxen = require('boxen');
@@ -44,6 +43,13 @@ function getShortcutWithDecorators(shortcut, prefix, options) {
     : ' ' + prepend + shortcut + append + ' ';
 }
 
+function padRightWithMonospaceEmoji(string, length) {
+  const paddingRequired = length - string.replace(emojiRegex(), '  ').length;
+  if (paddingRequired <= 0) return string;
+
+  return string + ' '.repeat(paddingRequired);
+}
+
 // This can be any kind of SystemJS compatible module.
 // We use Commonjs here, but ES6 or AMD would do just
 // fine.
@@ -74,7 +80,7 @@ module.exports = function(options) {
   const length = Math.max(...Object.keys(types).map(t => t.replace(emojiRegex(), '  ').length)) + 1;
   const choices = map(types, function(type, key) {
     return {
-      name: rightPad(key + ':', length) + ' ' + type.description,
+      name: padRightWithMonospaceEmoji(key + ':', length) + ' ' + type.description,
       value: key
     };
   });

@@ -35,7 +35,7 @@ class LimitedInputPrompt extends InputPrompt {
         0,
         this.opt.maxLength - this.leadingLength
       );
-      this.rl.cursor = length;
+      this.rl.cursor = this.rl.line.replace(emojiRegex(), ' ').length;
     }
 
     this.render();
