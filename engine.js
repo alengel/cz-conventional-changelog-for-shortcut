@@ -2,7 +2,7 @@
 
 const wrap = require('word-wrap');
 const map = require('lodash.map');
-const longest = require('longest');
+const stringWidth = require('power-assert-util-string-width');
 const rightPad = require('right-pad');
 const chalk = require('chalk');
 const branch = require('git-branch');
@@ -24,6 +24,26 @@ const filterSubject = function(subject) {
   return subject;
 };
 
+// parentheses are only needed when a scope is present
+function getScope(answers) {
+  return answers.scope ? '(' + answers.scope + ')' : '';
+}
+
+function shortcutIsEmpty(shortcut, prefix) {
+  return !shortcut ||
+    shortcut === '' ||
+    shortcut === prefix
+}
+
+function getShortcutWithDecorators(shortcut, prefix, options) {
+  // Get Shortcut story prepend and append decorators
+  const prepend = options.shortcutPrepend || '';
+  const append = options.shortcutAppend || '';
+  return shortcutIsEmpty(shortcut, prefix)
+    ? ''
+    : prepend + shortcut + append + ' ';
+}
+
 // This can be any kind of SystemJS compatible module.
 // We use Commonjs here, but ES6 or AMD would do just
 // fine.
@@ -41,20 +61,17 @@ module.exports = function(options) {
     switch (location) {
       case 'pre-type':
         return shortcutWithDecorators + type + scope + ': ' + subject;
-        break;
       case 'pre-description':
         return type + scope + ': ' + shortcutWithDecorators + subject;
-        break;
       case 'post-description':
         return type + scope + ': ' + subject + ' ' + shortcutWithDecorators;
-        break;
       default:
         return type + scope + ': ' + shortcutWithDecorators + subject;
     }
   };
   const types = getFromOptionsOrDefaults('types');
 
-  const length = longest(Object.keys(types)).length + 1;
+  const length = Math.max(...map(Object.keys(types), stringWidth)) + 1;
   const choices = map(types, function(type, key) {
     return {
       name: rightPad(key + ':', length) + ' ' + type.description,
@@ -74,6 +91,8 @@ module.exports = function(options) {
     options.scopes &&
     Array.isArray(options.scopes) &&
     options.scopes.length > 0;
+
+  const shortcutPrefix = `${getFromOptionsOrDefaults('shortcutPrefix')}-`;
 
   return {
     // When a user runs `git cz`, prompter will
@@ -110,16 +129,16 @@ module.exports = function(options) {
           name: 'shortcut',
           message:
             'Enter Shortcut story (' +
-            getFromOptionsOrDefaults('shortcutPrefix') +
-            '-1234)' +
+            shortcutPrefix +
+            '1234)' +
             (options.shortcutOptional ? ' (optional)' : '') +
             ':',
           when: options.shortcutMode,
           default: shortcutStory || `${getFromOptionsOrDefaults('shortcutPrefix')}-`,
           validate: function(shortcut) {
             return (
-              (options.shortcutOptional && !shortcut) ||
-              /^(?<!([a-z0-9]{1,10})-?)[a-z0-9]+-\d+$/.test(shortcut)
+              (options.shortcutOptional && shortcutIsEmpty(shortcut, shortcutPrefix)) ||
+              /^(?<!([A-Za-z0-9]{1,10})-?)[A-za-z0-9]+-\d+$/.test(shortcut)
             );
           },
           filter: function(shortcut) {
@@ -198,7 +217,7 @@ module.exports = function(options) {
           type: 'confirm',
           name: 'isIssueAffected',
           message: 'Does this change affect any open issues?',
-          default: options.defaultIssues ? true : false,
+          default: !!options.defaultIssues,
           when: !options.shortcutMode
         },
         {
@@ -231,15 +250,9 @@ module.exports = function(options) {
           width: options.maxLineWidth
         };
 
-        // parentheses are only needed when a scope is present
-        const scope = answers.scope ? '(' + answers.scope + ')' : '';
+        const scope = getScope(answers);
 
-        // Get Shortcut story prepend and append decorators
-        const prepend = options.shortcutPrepend || '';
-        const append = options.shortcutAppend || '';
-        const shortcutWithDecorators = answers.shortcut
-          ? prepend + answers.shortcut + append + ' '
-          : '';
+        const shortcutWithDecorators = getShortcutWithDecorators(answers.shortcut, shortcutPrefix, options);
 
         // Hard limit this line in the validate
         const head = getShortcutIssueLocation(

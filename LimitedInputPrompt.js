@@ -1,4 +1,5 @@
 const chalk = require('chalk');
+const stringWidth = require('power-assert-util-string-width')
 const InputPrompt = require('inquirer/lib/prompts/input');
 
 class LimitedInputPrompt extends InputPrompt {
@@ -21,20 +22,21 @@ class LimitedInputPrompt extends InputPrompt {
       this.leadingLabel = '';
     }
 
-    this.leadingLength = this.leadingLabel.length;
+    this.leadingLength = stringWidth(this.leadingLabel);
   }
 
   remainingChar() {
-    return this.opt.maxLength - this.leadingLength - this.rl.line.length;
+    return this.opt.maxLength - this.leadingLength - stringWidth(this.rl.line);
   }
 
   onKeypress() {
-    if (this.rl.line.length > this.opt.maxLength - this.leadingLength) {
+    const length = stringWidth(this.rl.line);
+    if (length > this.opt.maxLength - this.leadingLength) {
       this.rl.line = this.rl.line.slice(
         0,
         this.opt.maxLength - this.leadingLength
       );
-      this.rl.cursor--;
+      this.rl.cursor = length;
     }
 
     this.render();

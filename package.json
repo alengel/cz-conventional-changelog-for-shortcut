@@ -27,6 +27,7 @@
     "git-branch": "^2.0.1",
     "lodash.map": "^4.5.1",
     "longest": "^2.0.1",
+    "power-assert-util-string-width": "^1.2.0",
     "right-pad": "^1.0.1",
     "word-wrap": "^1.0.3"
   },
@@ -59,6 +60,8 @@
     "access": "public"
   },
   "release": {
-    "branches": ["main"]
+    "branches": [
+      "main"
+    ]
   }
 }
