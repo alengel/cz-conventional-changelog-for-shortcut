@@ -165,7 +165,7 @@ module.exports = function(options) {
           default: options.defaultSubject,
           maxLength: maxHeaderWidth,
           leadingLabel: answers => {
-            const shortcut = answers.shortcut ? ` ${answers.shortcut}` : '';
+            const shortcut = getShortcutWithDecorators(answers.shortcut, shortcutPrefix, options).trimRight();
             let scope = '';
 
             if (answers.scope && answers.scope !== 'none') {
