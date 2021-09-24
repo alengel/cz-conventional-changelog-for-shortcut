@@ -21,9 +21,9 @@
   "author": "Dion Larson <me@dionlarson.com>",
   "license": "MIT",
   "dependencies": {
+    "@dionlarson/commitizen": "^0.0.0-semantically-released",
     "boxen": "^5.0.0",
     "chalk": "^2.4.1",
-    "commitizen": "^4.2.4",
     "git-branch": "^2.0.1",
     "lodash.map": "^4.5.1",
     "longest": "^2.0.1",
