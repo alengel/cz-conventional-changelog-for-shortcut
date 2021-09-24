@@ -284,7 +284,7 @@ module.exports = function(options) {
           : false;
 
         const shortcutUrl =
-          answers.shortcut && options.shortcutOrganization
+          !shortcutIsEmpty(answers.shortcut, shortcutPrefix) && options.shortcutOrganization
             ? `https://app.shortcut.com/${options.shortcutOrganization}/story/${
                 answers.shortcut.match(/-(\d+)$/)[1]
               }`
