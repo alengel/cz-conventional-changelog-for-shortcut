@@ -1,5 +1,5 @@
 const chalk = require('chalk');
-const stringWidth = require('power-assert-util-string-width')
+const emojiRegex = require('emoji-regex')
 const InputPrompt = require('inquirer/lib/prompts/input');
 
 class LimitedInputPrompt extends InputPrompt {
@@ -9,7 +9,6 @@ class LimitedInputPrompt extends InputPrompt {
     if (!this.opt.maxLength) {
       this.throwParamError('maxLength');
     }
-    this.originalMessage = this.opt.message;
     this.spacer = new Array(this.opt.maxLength).fill('-').join('');
 
     if (this.opt.leadingLabel) {
@@ -22,15 +21,15 @@ class LimitedInputPrompt extends InputPrompt {
       this.leadingLabel = '';
     }
 
-    this.leadingLength = stringWidth(this.leadingLabel) + 1;
+    this.leadingLength = this.leadingLabel.replace(emojiRegex(), '  ').length;
   }
 
   remainingChar() {
-    return this.opt.maxLength - this.leadingLength - stringWidth(this.rl.line);
+    return this.opt.maxLength - this.leadingLength - this.rl.line.replace(emojiRegex(), '  ').length;
   }
 
   onKeypress() {
-    const length = stringWidth(this.rl.line);
+    const length = this.rl.line.replace(emojiRegex(), '  ').length;
     if (length > this.opt.maxLength - this.leadingLength) {
       this.rl.line = this.rl.line.slice(
         0,

@@ -2,7 +2,7 @@
 
 const wrap = require('word-wrap');
 const map = require('lodash.map');
-const stringWidth = require('power-assert-util-string-width');
+const emojiRegex = require('emoji-regex');
 const rightPad = require('right-pad');
 const chalk = require('chalk');
 const branch = require('git-branch');
@@ -71,7 +71,7 @@ module.exports = function(options) {
   };
   const types = getFromOptionsOrDefaults('types');
 
-  const length = Math.max(...map(Object.keys(types), stringWidth)) + 1;
+  const length = Math.max(...Object.keys(types).map(t => t.replace(emojiRegex(), '  ').length)) + 1;
   const choices = map(types, function(type, key) {
     return {
       name: rightPad(key + ':', length) + ' ' + type.description,
