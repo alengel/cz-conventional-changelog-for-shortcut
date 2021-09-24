@@ -42,6 +42,9 @@
     "semantic-release": "^18.0.0",
     "semver": "^6.2.0"
   },
+  "resolutions": {
+    "inquirer": "8.1.5"
+  },
   "optionalDependencies": {
     "@commitlint/load": ">6.1.1"
   },
