@@ -29,9 +29,7 @@ function getScope(answers) {
 }
 
 function shortcutIsEmpty(shortcut, prefix) {
-  return !shortcut ||
-    shortcut === '' ||
-    shortcut === prefix
+  return !shortcut || shortcut === '' || shortcut === prefix;
 }
 
 function getShortcutWithDecorators(shortcut, prefix, options) {
@@ -66,21 +64,33 @@ module.exports = function(options) {
   ) {
     switch (location) {
       case 'pre-type':
-        return shortcutWithDecorators.trimLeft() + type + scope + ': ' + subject;
+        return (
+          shortcutWithDecorators.trimLeft() + type + scope + ': ' + subject
+        );
       case 'pre-description':
-        return type + scope + ': ' + shortcutWithDecorators.trimLeft() + subject;
+        return (
+          type + scope + ': ' + shortcutWithDecorators.trimLeft() + subject
+        );
       case 'post-description':
-        return type + scope + ': ' + subject + shortcutWithDecorators.trimRight();
+        return (
+          type + scope + ': ' + subject + shortcutWithDecorators.trimRight()
+        );
       default:
-        return type + scope + ': ' + shortcutWithDecorators.trimLeft() + subject;
+        return (
+          type + scope + ': ' + shortcutWithDecorators.trimLeft() + subject
+        );
     }
   };
   const types = getFromOptionsOrDefaults('types');
 
-  const length = Math.max(...Object.keys(types).map(t => t.replace(emojiRegex(), '  ').length)) + 1;
+  const length =
+    Math.max(
+      ...Object.keys(types).map(t => t.replace(emojiRegex(), '  ').length)
+    ) + 1;
   const choices = map(types, function(type, key) {
     return {
-      name: padRightWithMonospaceEmoji(key + ':', length) + ' ' + type.description,
+      name:
+        padRightWithMonospaceEmoji(key + ':', length) + ' ' + type.description,
       value: key
     };
   });
@@ -140,10 +150,12 @@ module.exports = function(options) {
             (options.shortcutOptional ? ' (optional)' : '') +
             ':',
           when: options.shortcutMode,
-          default: shortcutStory || `${getFromOptionsOrDefaults('shortcutPrefix')}-`,
+          default:
+            shortcutStory || `${getFromOptionsOrDefaults('shortcutPrefix')}-`,
           validate: function(shortcut) {
             return (
-              (options.shortcutOptional && shortcutIsEmpty(shortcut, shortcutPrefix)) ||
+              (options.shortcutOptional &&
+                shortcutIsEmpty(shortcut, shortcutPrefix)) ||
               /^(?<!([A-Za-z0-9]{1,10})-?)[A-za-z0-9]+-\d+$/.test(shortcut)
             );
           },
@@ -171,7 +183,11 @@ module.exports = function(options) {
           default: options.defaultSubject,
           maxLength: maxHeaderWidth,
           leadingLabel: answers => {
-            const shortcut = getShortcutWithDecorators(answers.shortcut, shortcutPrefix, options).trimRight();
+            const shortcut = getShortcutWithDecorators(
+              answers.shortcut,
+              shortcutPrefix,
+              options
+            ).trimRight();
             let scope = '';
 
             if (answers.scope && answers.scope !== 'none') {
@@ -258,7 +274,11 @@ module.exports = function(options) {
 
         const scope = getScope(answers);
 
-        const shortcutWithDecorators = getShortcutWithDecorators(answers.shortcut, shortcutPrefix, options);
+        const shortcutWithDecorators = getShortcutWithDecorators(
+          answers.shortcut,
+          shortcutPrefix,
+          options
+        );
 
         // Hard limit this line in the validate
         const head = getShortcutIssueLocation(
@@ -284,7 +304,8 @@ module.exports = function(options) {
           : false;
 
         const shortcutUrl =
-          !shortcutIsEmpty(answers.shortcut, shortcutPrefix) && options.shortcutOrganization
+          !shortcutIsEmpty(answers.shortcut, shortcutPrefix) &&
+          options.shortcutOrganization
             ? `https://app.shortcut.com/${options.shortcutOrganization}/story/${
                 answers.shortcut.match(/-(\d+)$/)[1]
               }`

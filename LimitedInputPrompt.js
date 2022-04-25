@@ -1,5 +1,5 @@
 const chalk = require('chalk');
-const emojiRegex = require('emoji-regex')
+const emojiRegex = require('emoji-regex');
 const InputPrompt = require('inquirer/lib/prompts/input');
 
 class LimitedInputPrompt extends InputPrompt {
@@ -25,7 +25,11 @@ class LimitedInputPrompt extends InputPrompt {
   }
 
   remainingChar() {
-    return this.opt.maxLength - this.leadingLength - this.rl.line.replace(emojiRegex(), '  ').length;
+    return (
+      this.opt.maxLength -
+      this.leadingLength -
+      this.rl.line.replace(emojiRegex(), '  ').length
+    );
   }
 
   onKeypress() {

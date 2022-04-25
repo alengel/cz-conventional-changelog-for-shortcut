@@ -9,10 +9,10 @@
     "format": "prettier --write *.js",
     "semantic-release": "semantic-release"
   },
-  "homepage": "https://github.com/dionlarson/cz-conventional-changelog-for-shortcut",
+  "homepage": "https://github.com/hellorevel/cz-conventional-changelog-for-shortcut",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dionlarson/cz-conventional-changelog-for-shortcut.git"
+    "url": "https://github.com/hellorevel/cz-conventional-changelog-for-shortcut.git"
   },
   "engineStrict": true,
   "engines": {
@@ -21,9 +21,9 @@
   "author": "Dion Larson <me@dionlarson.com>",
   "license": "MIT",
   "dependencies": {
-    "@dionlarson/commitizen": "^0.0.0-semantically-released",
     "boxen": "^5.0.0",
     "chalk": "^2.4.1",
+    "commitizen": "^4.2.4",
     "emoji-regex": "^9.2.2",
     "git-branch": "^2.0.1",
     "inquirer": "^8.1.5",
