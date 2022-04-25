@@ -44,7 +44,8 @@
     "semver": "^6.2.0"
   },
   "resolutions": {
-    "inquirer": "8.1.5"
+    "inquirer": "8.1.5",
+    "minimist": "1.2.6"
   },
   "optionalDependencies": {
     "@commitlint/load": ">6.1.1"
