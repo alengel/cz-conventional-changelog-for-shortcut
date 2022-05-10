@@ -237,6 +237,13 @@ module.exports = function(options) {
 
         {
           type: 'confirm',
+          name: 'noCi',
+          message: 'Do you want to skip CI for this commit?',
+          default: false
+        },
+
+        {
+          type: 'confirm',
           name: 'isIssueAffected',
           message: 'Does this change affect any open issues?',
           default: !!options.defaultIssues,
@@ -292,6 +299,8 @@ module.exports = function(options) {
         // Wrap these lines at options.maxLineWidth characters
         const body = answers.body ? wrap(answers.body, wrapOptions) : false;
 
+        const noCi = answers.noCi ? '[no ci]' : false;
+
         // Apply breaking change prefix, removing it if already present
         let breaking = answers.breaking ? answers.breaking.trim() : '';
         breaking = breaking
@@ -314,6 +323,7 @@ module.exports = function(options) {
         const fullCommit = filter([
           head,
           body,
+          noCi,
           breaking,
           issues,
           shortcutUrl
